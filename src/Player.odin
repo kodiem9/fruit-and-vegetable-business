@@ -1,21 +1,22 @@
 package main
 import rl "vendor:raylib"
 
-SIZE :: 64
+SIZE :: 128
 SPEED :: 400
 
 Player :: struct {
-    transform: Transform_Component
+    transform: Transform_Component,
+    texture: Texture_Component,
 }
 
 player_init :: proc(player: ^Player) {
     player.transform.size = { SIZE, SIZE }
     player.transform.position = { 0, 0 }
-    player.transform.color = rl.RED
+    player.transform.color = rl.WHITE
 }
 
-player_draw :: proc(player: Player) {
-    transform_draw(player.transform)
+player_draw :: proc(player: ^Player) {
+    texture_draw(player.transform, &player.texture, global.textures.player)
 }
 
 player_update :: proc(player: ^Player, delta: f32) {

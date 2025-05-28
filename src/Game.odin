@@ -15,6 +15,10 @@ game_loop :: proc() {
     rl.SetTargetFPS(60)
     defer rl.CloseWindow()
 
+    game_init()
+    global_init()
+    defer global_destroy()
+
     for !rl.WindowShouldClose() {
         game_update()
         rl.BeginDrawing()
@@ -25,7 +29,7 @@ game_loop :: proc() {
 }
 
 game_draw :: proc() {
-    player_draw(game_memory.player)
+    player_draw(&game_memory.player)
 }
 
 game_update :: proc() {
