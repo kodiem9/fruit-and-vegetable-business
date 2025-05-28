@@ -1,7 +1,16 @@
 package main
 import rl "vendor:raylib"
 
+Game_Memory :: struct {
+    player: Player
+}
+game_memory: Game_Memory
+
 game_init :: proc() {
+    player_init(&game_memory.player)
+}
+
+game_loop :: proc() {
     rl.InitWindow(1280, 720, "Fruit and Vegetable business")
     rl.SetTargetFPS(60)
     defer rl.CloseWindow()
@@ -16,9 +25,10 @@ game_init :: proc() {
 }
 
 game_draw :: proc() {
-    rl.DrawRectangle(64, 64, 64, 64, rl.RED)
+    player_draw(game_memory.player)
 }
 
 game_update :: proc() {
-    
+    delta := rl.GetFrameTime()
+    player_update(&game_memory.player, delta)
 }
